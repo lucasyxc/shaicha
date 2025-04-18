@@ -537,9 +537,16 @@
             const qrReader = document.getElementById('qr-reader');
             qrReader.style.display = 'block';
 
+            // 配置后置摄像头
+            const config = {
+                fps: 10,
+                qrbox: 250,
+                facingMode: "environment"  // 使用后置摄像头
+            };
+
             html5QrcodeScanner = new Html5QrcodeScanner(
                 "qr-reader",
-                { fps: 10, qrbox: 250 },
+                config,
                 false
             );
 
