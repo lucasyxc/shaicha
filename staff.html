@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筛查人员管理 - 校园视力筛查管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/staff.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 1rem 1rem;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        .stats-icon {
+            font-size: 2rem;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0d6efd;
+            margin-bottom: 0.5rem;
+        }
+        .stats-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .staff-card {
+            transition: transform 0.3s ease;
+        }
+        .staff-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">校园视力筛查管理系统</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="bi bi-house-door"></i> 首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="project.html"><i class="bi bi-people"></i> 筛查项目管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="school.html"><i class="bi bi-building"></i> 筛查学校管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="staff.html"><i class="bi bi-person-badge"></i> 筛查人员管理</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div id="userInfo">
+                        <span class="navbar-text me-3"><i class="bi bi-person-circle"></i> <span id="currentUser">管理员</span></span>
+                        <button class="btn btn-outline-light" onclick="logout()">退出登录</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="h2 mb-0">筛查人员管理</h1>
+        </div>
+    </div>
+
+    <!-- 主要内容区域 -->
+    <div class="container mt-4">
+        <!-- 统计卡片 -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-person-badge stats-icon"></i>
+                        <div class="stats-number" id="totalStaff">0</div>
+                        <div class="stats-label">总人员数</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-person-check stats-icon"></i>
+                        <div class="stats-number" id="activeStaff">0</div>
+                        <div class="stats-label">在岗人员</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-award stats-icon"></i>
+                        <div class="stats-number" id="qualifiedStaff">0</div>
+                        <div class="stats-label">持证人员</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-calendar-check stats-icon"></i>
+                        <div class="stats-number" id="busyStaff">0</div>
+                        <div class="stats-label">任务中人员</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 搜索和过滤区域 -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="searchInput" placeholder="搜索人员姓名...">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="roleFilter">
+                            <option value="">全部角色</option>
+                            <option value="医生">医生</option>
+                            <option value="护士">护士</option>
+                            <option value="技师">技师</option>
+                            <option value="助理">助理</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="statusFilter">
+                            <option value="">全部状态</option>
+                            <option value="在岗">在岗</option>
+                            <option value="休假">休假</option>
+                            <option value="任务中">任务中</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary w-100" onclick="applyFilters()">
+                            <i class="bi bi-search"></i> 搜索
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 人员列表 -->
+        <div class="row" id="staffList">
+            <!-- 人员卡片将通过JavaScript动态加载 -->
+        </div>
+
+        <!-- 分页 -->
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center" id="pagination">
+                <!-- 分页将通过JavaScript动态加载 -->
+            </ul>
+        </nav>
+
+        <!-- 添加人员按钮 -->
+        <button class="add-staff-btn" data-bs-toggle="modal" data-bs-target="#staffModal">
+            <i class="bi bi-plus-lg"></i>
+        </button>
+
+        <!-- 人员表单模态框 -->
+        <div class="modal fade" id="staffModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle">添加新人员</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="staffForm">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">姓名</label>
+                                    <input type="text" class="form-control" id="staffName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">角色</label>
+                                    <select class="form-select" id="staffRole" required>
+                                        <option value="">请选择角色</option>
+                                        <option value="医生">医生</option>
+                                        <option value="护士">护士</option>
+                                        <option value="技师">技师</option>
+                                        <option value="助理">助理</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">身份证号</label>
+                                    <input type="text" class="form-control" id="idCard" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">联系电话</label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">资格证书</label>
+                                    <input type="text" class="form-control" id="certificate" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">证书编号</label>
+                                    <input type="text" class="form-control" id="certificateNo" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">备注</label>
+                                <textarea class="form-control" id="remarks" rows="3"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" onclick="saveStaff()">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/staff.js"></script>
+</body>
+</html> 

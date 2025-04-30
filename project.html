@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>筛查项目管理 - 校园视力筛查管理系统</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/project.css" rel="stylesheet">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 1rem 1rem;
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .stats-card:hover {
+            transform: translateY(-5px);
+        }
+        .stats-icon {
+            font-size: 2rem;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+        .stats-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #0d6efd;
+            margin-bottom: 0.5rem;
+        }
+        .stats-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .status-badge.pending {
+            background-color: #ffc107;
+            color: #000;
+        }
+        .status-badge.active {
+            background-color: #0d6efd;
+            color: #fff;
+        }
+        .status-badge.completed {
+            background-color: #198754;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">校园视力筛查管理系统</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="bi bi-house-door"></i> 首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="project.html"><i class="bi bi-people"></i> 筛查项目管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="school.html"><i class="bi bi-building"></i> 筛查学校管理</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="staff.html"><i class="bi bi-person-badge"></i> 筛查人员管理</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div id="userInfo">
+                        <span class="navbar-text me-3"><i class="bi bi-person-circle"></i> <span id="currentUser">管理员</span></span>
+                        <button class="btn btn-outline-light" onclick="logout()">退出登录</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="h2 mb-0">筛查项目管理</h1>
+        </div>
+    </div>
+
+    <!-- 主要内容区域 -->
+    <div class="container mt-4">
+        <!-- 统计卡片 -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-clipboard-data stats-icon"></i>
+                        <div class="stats-number" id="totalProjects">0</div>
+                        <div class="stats-label">总项目数</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-play-circle stats-icon"></i>
+                        <div class="stats-number" id="activeProjects">0</div>
+                        <div class="stats-label">进行中项目</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-check-circle stats-icon"></i>
+                        <div class="stats-number" id="completedProjects">0</div>
+                        <div class="stats-label">已完成项目</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="card-body text-center p-4">
+                        <i class="bi bi-people stats-icon"></i>
+                        <div class="stats-number" id="totalScreened">0</div>
+                        <div class="stats-label">已筛查人数</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 搜索和过滤区域 -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="searchInput" placeholder="搜索项目名称...">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="statusFilter">
+                            <option value="">全部状态</option>
+                            <option value="active">进行中</option>
+                            <option value="pending">待开始</option>
+                            <option value="completed">已完成</option>
+                            <option value="cancelled">已取消</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="date" class="form-control" id="dateFilter">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-primary w-100" onclick="applyFilters()">
+                            <i class="bi bi-search"></i> 搜索
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 项目列表 -->
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table project-table">
+                        <thead>
+                            <tr>
+                                <th>项目名称</th>
+                                <th>状态</th>
+                                <th>开始日期</th>
+                                <th>结束日期</th>
+                                <th>归属区域</th>
+                                <th>项目负责人</th>
+                                <th>进度</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="projectList">
+                            <!-- 项目列表将通过JavaScript动态加载 -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 分页 -->
+                <nav aria-label="Page navigation" class="mt-4">
+                    <ul class="pagination justify-content-center" id="pagination">
+                        <!-- 分页将通过JavaScript动态加载 -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <!-- 添加项目按钮 -->
+        <button class="add-project-btn" data-bs-toggle="modal" data-bs-target="#projectModal">
+            <i class="bi bi-plus-lg"></i>
+        </button>
+
+        <!-- 项目表单模态框 -->
+        <div class="modal fade" id="projectModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTitle">添加新项目</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="projectForm" class="form-section">
+                            <!-- 项目名称生成部分 -->
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">年份</label>
+                                    <input type="text" class="form-control" id="projectYear" 
+                                        pattern="\d{4}" maxlength="4" placeholder="请输入4位年份" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">学期</label>
+                                    <select class="form-select" id="projectTerm" required>
+                                        <option value="">请选择学期</option>
+                                        <option value="春季">春季</option>
+                                        <option value="秋季">秋季</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">学校名称</label>
+                                    <input type="text" class="form-control" id="schoolName" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" style="display: none;">生成的项目名称</label>
+                                <input type="text" class="form-control" id="projectName" style="display: none;" readonly>
+                            </div>
+
+                            <!-- 日期选择 -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">开始日期</label>
+                                    <input type="date" class="form-control" id="startDate" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">结束日期</label>
+                                    <input type="date" class="form-control" id="endDate" required>
+                                </div>
+                            </div>
+
+                            <!-- 归属区域和项目负责人 -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">归属区域</label>
+                                    <select class="form-select" id="projectArea" required>
+                                        <option value="">请选择归属区域</option>
+                                        <!-- 区域选项将通过JavaScript动态加载 -->
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">项目负责人</label>
+                                    <select class="form-select" id="projectLeader" required>
+                                        <option value="">请选择项目负责人</option>
+                                        <!-- 负责人选项将通过JavaScript动态加载 -->
+                                </select>
+                                </div>
+                            </div>
+
+                            <!-- 校方联系人信息 -->
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">校方联系人姓名</label>
+                                    <input type="text" class="form-control" id="schoolContactName" required>
+                                        </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">校方联系人电话</label>
+                                    <input type="tel" class="form-control" id="schoolContactPhone" required>
+                                </div>
+                            </div>
+
+                            <!-- 筛查项目选择 -->
+                            <div class="mb-3">
+                                <label class="form-label">筛查项目</label>
+                                <div class="row" id="screeningItems">
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="vision" id="item_vision">
+                                            <label class="form-check-label" for="item_vision">视力</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="refraction" id="item_refraction">
+                                            <label class="form-check-label" for="item_refraction">屈光</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="eyePressure" id="item_eyePressure">
+                                            <label class="form-check-label" for="item_eyePressure">眼压</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="fundus" id="item_fundus">
+                                            <label class="form-check-label" for="item_fundus">眼底</label>
+                                </div>
+                            </div>
+                                    <div class="col-auto">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="slit" id="item_slit">
+                                            <label class="form-check-label" for="item_slit">裂隙灯</label>
+                                        </div>
+                                </div>
+                                </div>
+                            </div>
+
+                            <!-- 目标年级选择 -->
+                            <div class="mb-3">
+                                <label class="form-label">目标年级</label>
+                                <div class="row" id="targetGrades">
+                                    <div class="col-12 mb-2">
+                                        <div class="fw-bold">幼儿园</div>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="0.1" id="grade_0.1">
+                                                    <label class="form-check-label" for="grade_0.1">小班</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="0.2" id="grade_0.2">
+                                                    <label class="form-check-label" for="grade_0.2">中班</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="0.3" id="grade_0.3">
+                                                    <label class="form-check-label" for="grade_0.3">大班</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="fw-bold">小学</div>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="grade_1">
+                                                    <label class="form-check-label" for="grade_1">一年级</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="2" id="grade_2">
+                                                    <label class="form-check-label" for="grade_2">二年级</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="3" id="grade_3">
+                                                    <label class="form-check-label" for="grade_3">三年级</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="4" id="grade_4">
+                                                    <label class="form-check-label" for="grade_4">四年级</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="5" id="grade_5">
+                                                    <label class="form-check-label" for="grade_5">五年级</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="6" id="grade_6">
+                                                    <label class="form-check-label" for="grade_6">六年级</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="fw-bold">初中</div>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="7" id="grade_7">
+                                                    <label class="form-check-label" for="grade_7">初一</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="8" id="grade_8">
+                                                    <label class="form-check-label" for="grade_8">初二</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="9" id="grade_9">
+                                                    <label class="form-check-label" for="grade_9">初三</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="fw-bold">高中</div>
+                                        <div class="row">
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="10" id="grade_10">
+                                                    <label class="form-check-label" for="grade_10">高一</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="11" id="grade_11">
+                                                    <label class="form-check-label" for="grade_11">高二</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="12" id="grade_12">
+                                                    <label class="form-check-label" for="grade_12">高三</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" onclick="saveProject()">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/project.js"></script>
+</body>
+</html> 

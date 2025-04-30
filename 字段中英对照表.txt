@@ -1,0 +1,64 @@
+# 校园视力筛查管理系统 - 数据库字段中英对照表
+
+## 用户表(users)
+- user_id 用户ID
+- username 用户名
+- password 密码
+- role 角色(admin/school_admin/screening_leader)
+- created_at 创建时间
+- updated_at 更新时间
+
+## 项目表(screening_projects)
+- project_id 项目ID
+- project_name 项目名称（格式：年-春季/秋季-学校）
+- project_status 项目状态(pending/active/completed)
+- start_date 开始日期
+- end_date 结束日期
+- area 归属区域
+- project_leader 项目负责人ID
+- project_description 项目描述
+- total_target 目标人数
+- screened_count 已筛查人数
+- project_progress 项目进度
+- created_at 创建时间
+- updated_at 更新时间
+
+## 项目-学校关联表(project_schools)
+- project_id 项目ID
+- school_id 学校ID
+
+## 项目-年级关联表(project_grades)
+- project_id 项目ID
+- grade 年级(1-9，对应一年级到初三)
+
+## 项目-筛查项目关联表(project_screening_items)
+- project_id 项目ID
+- screening_item 筛查项目(vision/refraction/eyePressure/fundus/slit)
+
+## 学校表(schools)
+- school_id 学校ID
+- school_name 学校名称
+- area 所属区域
+- address 学校地址
+- created_at 创建时间
+- updated_at 更新时间
+
+## 筛查记录表(screening_records)
+- record_id 记录ID
+- project_id 项目ID
+- school_id 学校ID
+- student_id 学生ID
+- screening_date 筛查日期
+- screening_item 筛查项目
+- screening_result 筛查结果
+- created_at 创建时间
+- updated_at 更新时间
+
+## 筛查人员表(screening_staff)
+- staff_id 人员ID
+- staff_name 姓名
+- staff_title 职称
+- created_at 创建时间
+- updated_at 更新时间
+
+

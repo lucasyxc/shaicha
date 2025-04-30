@@ -1,0 +1,83 @@
+# 校园视力筛查管理系统 - 项目设计要求
+
+## 样式规范
+1. CSS文件组织
+   - common.css：存放所有页面共用的基础样式
+     * 布局样式
+     * 通用组件样式
+     * 公共动画效果
+     * 主题色定义
+   
+   - 页面专属CSS：每个页面的独特样式需单独创建对应的CSS文件
+     * login.css：登录页面样式
+     * dashboard.css：主页面样式
+     * student.css：学生管理页面样式
+     * school.css：学校管理页面样式
+     * staff.css：筛查人员管理页面样式
+
+2. CSS命名规范
+   - 使用语义化命名
+   - 避免过深的嵌套
+   - 合理使用CSS变量
+
+## 前后端通信规范
+1. 所有与后端的通信都需要在控制台输出日志
+   - 请求发送日志：
+     * 请求方法（GET/POST等）
+     * 请求URL
+     * 请求参数
+     * 请求头信息（如有特殊设置）
+   
+   - 响应接收日志：
+     * 响应状态码
+     * 响应数据
+     * 响应时间
+
+2. 日志格式示例：
+   ```javascript
+   // 发送请求时
+   console.log('Request:', {
+       method: 'POST',
+       url: '/api/login',
+       data: {
+           username: 'xxx',
+           password: 'xxx'
+       }
+   });
+
+   // 接收响应时
+   console.log('Response:', {
+       status: 200,
+       data: {
+           token: 'xxx',
+           user: {
+               id: 1,
+               name: 'xxx'
+           }
+       }
+   });
+   ```
+
+## 代码规范
+1. 保持代码整洁，添加必要的注释
+2. 使用统一的代码格式化规则
+3. 遵循模块化开发原则
+
+## 文件结构
+```
+├── css/
+│   ├── common.css
+│   ├── login.css
+│   ├── dashboard.css
+│   └── ...
+├── js/
+│   ├── main.js
+│   ├── dashboard.js
+│   └── ...
+└── index.html
+```
+
+## 注意事项
+1. 所有页面必须引入common.css
+2. 控制台日志要清晰可读
+3. 代码提交前进行必要的测试

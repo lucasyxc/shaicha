@@ -1,0 +1,158 @@
+{
+    "areas": [
+        {
+            "id": "area001",
+            "name": "锦江区",
+            "description": "成都市锦江区"
+        },
+        {
+            "id": "area002",
+            "name": "青羊区",
+            "description": "成都市青羊区"
+        },
+        {
+            "id": "area003",
+            "name": "金牛区",
+            "description": "成都市金牛区"
+        },
+        {
+            "id": "area004",
+            "name": "武侯区",
+            "description": "成都市武侯区"
+        },
+        {
+            "id": "area005",
+            "name": "成华区",
+            "description": "成都市成华区"
+        },
+        {
+            "id": "area006",
+            "name": "高新区",
+            "description": "成都市高新区"
+        }
+    ],
+    "leaders": [
+        {
+            "id": "doc001",
+            "name": "张医生",
+            "title": "主任医师",
+            "specialty": "眼科",
+            "phone": "13800138001",
+            "email": "zhang@example.com"
+        },
+        {
+            "id": "doc002",
+            "name": "李医生",
+            "title": "副主任医师",
+            "specialty": "眼科",
+            "phone": "13800138002",
+            "email": "li@example.com"
+        },
+        {
+            "id": "doc003",
+            "name": "王医生",
+            "title": "主治医师",
+            "specialty": "眼科",
+            "phone": "13800138003",
+            "email": "wang@example.com"
+        },
+        {
+            "id": "doc004",
+            "name": "刘医生",
+            "title": "副主任医师",
+            "specialty": "眼科",
+            "phone": "13800138004",
+            "email": "liu@example.com"
+        },
+        {
+            "id": "doc005",
+            "name": "赵医生",
+            "title": "主任医师",
+            "specialty": "眼科",
+            "phone": "13800138005",
+            "email": "zhao@example.com"
+        }
+    ],
+    "projects": [
+        {
+            "id": 1,
+            "name": "2023-秋季-成都市实验小学",
+            "status": "active",
+            "startDate": "2023-09-01",
+            "endDate": "2024-01-15",
+            "areaId": "area001",
+            "schools": ["成都市实验小学"],
+            "grades": [1, 2, 3, 4, 5, 6],
+            "screeningItems": ["vision", "refraction", "fundus"],
+            "leaderId": "doc001",
+            "totalTarget": 1200,
+            "screenedCount": 800,
+            "progress": 67,
+            "description": "2023年秋季视力筛查"
+        },
+        {
+            "id": 2,
+            "name": "2023-秋季-成都市第七中学",
+            "status": "completed",
+            "startDate": "2023-09-01",
+            "endDate": "2024-01-15",
+            "areaId": "area002",
+            "schools": ["成都市第七中学"],
+            "grades": [7, 8, 9],
+            "screeningItems": ["vision", "refraction", "eyePressure", "slit"],
+            "leaderId": "doc002",
+            "totalTarget": 900,
+            "screenedCount": 900,
+            "progress": 100,
+            "description": "2023年秋季视力筛查"
+        },
+        {
+            "id": 3,
+            "name": "2023-秋季-成都市石室中学",
+            "status": "completed",
+            "startDate": "2023-09-01",
+            "endDate": "2024-01-15",
+            "areaId": "area003",
+            "schools": ["成都市石室中学"],
+            "grades": [10, 11, 12],
+            "screeningItems": ["vision", "refraction"],
+            "leaderId": "doc003",
+            "totalTarget": 600,
+            "screenedCount": 600,
+            "progress": 100,
+            "description": "2023年秋季视力筛查"
+        },
+        {
+            "id": 4,
+            "name": "2023-秋季-成都市特殊教育学校",
+            "status": "completed",
+            "startDate": "2023-09-01",
+            "endDate": "2024-01-15",
+            "areaId": "area004",
+            "schools": ["成都市特殊教育学校"],
+            "grades": [1, 2, 3, 4, 5, 6],
+            "screeningItems": ["vision", "refraction", "fundus", "eyePressure", "slit"],
+            "leaderId": "doc004",
+            "totalTarget": 200,
+            "screenedCount": 200,
+            "progress": 100,
+            "description": "2023年秋季视力筛查"
+        },
+        {
+            "id": 5,
+            "name": "2023-秋季-成都市树德中学",
+            "status": "active",
+            "startDate": "2023-09-01",
+            "endDate": "2024-01-15",
+            "areaId": "area005",
+            "schools": ["成都市树德中学"],
+            "grades": [7, 8, 9],
+            "screeningItems": ["vision", "refraction", "fundus", "eyePressure"],
+            "leaderId": "doc005",
+            "totalTarget": 900,
+            "screenedCount": 600,
+            "progress": 67,
+            "description": "2023年秋季视力筛查"
+        }
+    ]
+} 

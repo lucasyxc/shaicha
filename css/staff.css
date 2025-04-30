@@ -1,0 +1,146 @@
+/* 人员卡片样式 */
+.staff-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.staff-card:hover {
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.staff-card .card-header {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    color: white;
+    padding: 1rem;
+    border-bottom: none;
+}
+
+.staff-card .card-body {
+    padding: 1.5rem;
+}
+
+.staff-card .staff-info {
+    margin-bottom: 1rem;
+}
+
+.staff-card .staff-info p {
+    margin-bottom: 0.5rem;
+    color: #6c757d;
+}
+
+.staff-card .staff-info strong {
+    color: #212529;
+    margin-right: 0.5rem;
+}
+
+.staff-card .staff-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.staff-card .status-active {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.staff-card .status-busy {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.staff-card .status-off {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+/* 添加人员按钮样式 */
+.add-staff-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.add-staff-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* 模态框样式 */
+#staffModal .modal-content {
+    border-radius: 1rem;
+    border: none;
+}
+
+#staffModal .modal-header {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    color: white;
+    border-radius: 1rem 1rem 0 0;
+    padding: 1.5rem;
+}
+
+#staffModal .modal-body {
+    padding: 2rem;
+}
+
+#staffModal .form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+#staffModal .form-control,
+#staffModal .form-select {
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+    padding: 0.75rem 1rem;
+}
+
+#staffModal .form-control:focus,
+#staffModal .form-select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13,110,253,0.25);
+}
+
+#staffModal .modal-footer {
+    border-top: 1px solid #dee2e6;
+    padding: 1.5rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .staff-card {
+        margin-bottom: 1rem;
+    }
+    
+    .add-staff-btn {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.25rem;
+        bottom: 1.5rem;
+        right: 1.5rem;
+    }
+    
+    #staffModal .modal-body {
+        padding: 1.5rem;
+    }
+} 

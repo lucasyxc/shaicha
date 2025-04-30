@@ -1,0 +1,154 @@
+/* 导航栏样式 */
+.nav-link {
+    color: rgba(255,255,255,.85) !important;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #fff !important;
+}
+
+.navbar-text {
+    color: rgba(255,255,255,.85) !important;
+}
+
+#logoutBtn {
+    border: 1px solid rgba(255,255,255,.5);
+}
+
+/* 数据卡片样式 */
+.stat-card {
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card .card-body {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.stat-card .card-title {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.stat-card .card-title i {
+    color: var(--primary-color);
+}
+
+.stat-card .display-4 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* 信息卡片样式 */
+.info-card .card-header {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-card .card-header h5 {
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.info-card .card-body {
+    padding: 1rem;
+}
+
+/* 英雄区域样式 */
+.hero-section {
+    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    color: white;
+    padding: 4rem 0;
+    margin-bottom: 2rem;
+    border-radius: 0 0 1rem 1rem;
+}
+
+/* 功能卡片样式 */
+.feature-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: #0d6efd;
+    margin-bottom: 1rem;
+}
+
+/* 统计卡片样式 */
+.stats-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+.stats-icon {
+    font-size: 2rem;
+    color: #0d6efd;
+    margin-bottom: 1rem;
+}
+
+.stats-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0d6efd;
+    margin-bottom: 0.5rem;
+}
+
+.stats-label {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* 最新项目表格样式 */
+.recent-projects-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.recent-projects-table td {
+    vertical-align: middle;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 0;
+    }
+    
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .stats-number {
+        font-size: 1.5rem;
+    }
+    
+    .feature-icon {
+        font-size: 2rem;
+    }
+} 

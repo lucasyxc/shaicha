@@ -1,0 +1,147 @@
+/* 项目管理页面样式 */
+
+/* 项目卡片样式 */
+.project-card {
+    transition: transform 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+/* 项目状态标签样式 */
+.status-active {
+    background-color: #28a745;
+}
+
+.status-pending {
+    background-color: #ffc107;
+}
+
+.status-completed {
+    background-color: #17a2b8;
+}
+
+.status-cancelled {
+    background-color: #dc3545;
+}
+
+/* 进度条样式 */
+.progress {
+    height: 8px;
+    margin-top: 10px;
+}
+
+/* 筛查项目表格样式 */
+.project-table th {
+    background-color: #f8f9fa;
+    border-top: none;
+}
+
+.project-table td {
+    vertical-align: middle;
+}
+
+/* 操作按钮样式 */
+.action-buttons .btn {
+    margin: 0 2px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* 搜索栏样式 */
+.search-bar {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* 过滤器样式 */
+.filter-section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-item {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* 添加项目按钮样式 */
+.add-project-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #0d6efd;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.add-project-btn:hover {
+    transform: scale(1.1);
+    background-color: #0b5ed7;
+}
+
+/* 表单样式 */
+.form-section {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-section .form-label {
+    font-weight: 500;
+}
+
+/* 统计卡片样式 */
+.stats-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.stats-card .stats-icon {
+    font-size: 2rem;
+    color: #0d6efd;
+}
+
+.stats-card .stats-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+.stats-card .stats-label {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .filter-item {
+        min-width: 100%;
+    }
+    
+    .add-project-btn {
+        width: 50px;
+        height: 50px;
+        bottom: 1rem;
+        right: 1rem;
+    }
+} 
